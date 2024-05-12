@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tuff Blog</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="my-journey-making-a-3d-game-engine">My Journey Making a 3D Game
+Engine</h1>
+<p>When I first started in 2020 with attempting to make a game, I barely
+knew any C. All I had done up to this point was write an x86 bootloader
+in assembly, attempt to do something in Unity using C# and play around
+with command line C programs.</p>
+<hr />
+<h3 id="foxandbox">FoxandBox</h3>
+<p>This early dive into game and engine development was heavily
+influenced by Stardew Valley and Pokemon. Everything from the tile based
+level to the art style.</p>
+<p><img src="Images/particleSystem.gif" /></p>
+<p>I started off using just SDL2 and learned everything from <a
+href="https://lazyfoo.net/tutorials/SDL/">Lazy Foo's tutorials</a> In
+the beginning my language of choice was C and that has remained. This is
+logically a somewhat odd choice but its just personal preference for the
+simplicity and control i have with C. I could just as easily have done
+all of this in something more suitable like C++ <em>but wheres the fun
+in that?</em></p>
+<p><img src="Images/speed.gif" /></p>
+<p>After level creation and movement was done, I worked on level
+interaction and automatic calculation of the borders between tile types.
+I did these calculations using a method similar to a cellular automaton.
+Each configuration of the 8 neighbours of a tile is assigned an index
+into the tilemap below. This later proved to not work too well for
+intersections of more than 2 materials, but for 2 materials the effect
+is quite nice. <img src="Images/autotile_mask.png" /> <img
+src="Images/fasterEditing.gif" /></p>
+<p>I developed an immediate mode (as opposed to a retained mode) UI
+library from scratch for this project which I used for the inventory and
+menus. Designing a good UI library is hard.. You'll see this theme come
+up a couple times again when I talk about my 3D engine as well. The UI
+of this game was very bare bones and crude but it worked well enough for
+my uses.</p>
+<p><img src="Images/pause.gif" /> <img src="Images/checkbox.gif" /></p>
+<p>I then used this UI system to make a cute little inventory system
+which served absolutely no purpose. Well, it would've served a purpose
+if i'd had any planning for the direction the game should've taken. But,
+alas, I had no idea what I was doing.</p>
+<p><img src="Images/itemDrop.gif" /> <img
+src="Images/groundItems.gif" /></p>
+<p>This project was ended when I attempted to expand the game to support
+a fully procedurally generated map. By this point the code base was a
+mess and memory leaks were popping up like a game of whack-a-mole (I got
+pretty far considering this was my first project of this scale).</p>
+<p>Although this game never ended up coming to anything, it taught me an
+incredible amount about basic programming, C, and engine development.
+This game is the catalyst which later drove me to make a 3D game engine.
+I deem this project was a success, even though there was no end goal to
+begin with.</p>
+<hr />
+<h3 id="tuff---the-first-attempt">Tuff - The first attempt</h3>
+<p>Insert why switch to open GL</p>
+<p>Originally, the only reason i wanted to switch to opengl was so I
+could rotate sprites, but I was too tempted by the ability to go 3D.</p>
+<p><img src="Images/opengl_renderer.gif" /> <img
+src="Images/slider.gif" /></p>
+<p>I used the wonderfully well made site <a
+href="https://learnopengl.com/">LearnOpenGL</a> by Joey de Vries to get
+started with basic 3D rendering. Once i'd gotten a fairly loose grasp on
+using opengl and toyed around with writing some shaders, my priorities
+changed, I no longer wanted to make a game, I wanted to make a game
+engine instead.</p>
+<p>By this point I had a comfortable grasp of most of C and abided by a
+fair amount of good coding practices (not enough). I went through and
+worked my way through the tutorial series. Starting off with .obj 3D
+model parsing / loading. Doing this early on helped immensely with
+mentally mapping from a 3D object and its triangles to the vertex data
+the GPU takes in.</p>
+<p><img src="Images/crate.gif" /></p>
+<p>I followed the tutorials up to the point of basic specular lighting
+and then toyed around with some different models and normal / bump
+maps.</p>
+<p><img src="Images/more_lighting.gif" /> <img
+src="Images/shiny.gif" /></p>
+<p>Now comes the second attempt at a UI library. This time I went with a
+retained mode UI and modeled it after a combination of html and css. I
+used <a href="https://github.com/zserge/jsmn">JSMN</a> to tokenize JSON
+files and then parsed the contents from there. UI files contained a
+style section for element classes and a hierarchical scene section for
+the elements themselves. Classes can be applied to elements and classes
+can with mouse actions such as hovering or clicking.</p>
+<p>I needed to change up my approach if i wanted to have a usable
+program with hot reloading and no memory leaks</p>
+<p>At this point, I wasn't following the tutorials on LearnOpenGL in
+order, I was using it more as a reference whenever I wanted to figure
+out how to do something. I spent a while messing around with shaders
+since you can very easily get some incredibly complex effects. Heres a
+few of my favourite:</p>
+<footer>
+	<hr />
+	<div style="font-size:12px; display:flex; justify-content:space-between;">
+	<div>Copyright © 2024 Cristian Bogdan</div>
+	<a href="../index.html">Home</a>
+	</div>
+</footer>
+</body>
+</html>
