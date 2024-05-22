@@ -16,14 +16,14 @@ After level creation and movement was done, I worked on level interaction and au
 ![](Images/autotile_mask.png)
 ![](Images/fasterEditing.gif)
 
-I developed an immediate mode (as opposed to a retained mode) UI library from scratch for this project which I used for the inventory and menus. Designing a good UI library is hard.. You'll see this theme come up a couple times again when I talk about my 3D engine as well. The UI of this game was very bare bones and crude but it worked well enough for my uses.
+I developed an immediate mode (as opposed to a retained mode) user interface library from scratch for this project which I used for the inventory and menus. Designing a good UI library is hard.. You'll see this theme come up a couple times again when I talk about my 3D engine as well. The UI of this game was very bare bones and crude but it worked well enough for my uses.
 
-![](Images/pause.gif)
-![](Images/checkbox.gif)
+![](Images/pause.mp4)
+![](Images/checkbox.mp4)
 
 I then used this UI system to make a cute little inventory system which served absolutely no purpose. Well, it would've served a purpose if i'd had any planning for the direction the game should've taken. But, alas, I had no idea what I was doing. 
 
-![](Images/itemDrop.gif)
+![](Images/itemDrop.mp4)
 ![](Images/groundItems.gif)
 
 
@@ -34,9 +34,9 @@ Although this game never ended up coming to anything, it taught me an incredible
 ---
 ### Tuff - The first attempt
 
-Insert why switch to open GL 
+Insert why switch to openGL 
 
-Originally, the only reason i wanted to switch to opengl was so I could rotate sprites, but I was too tempted by the ability to go 3D. 
+Originally, the only reason i wanted to switch to opengl was so I could rotate sprites, but I was too tempted by the ability to go fully 3D (I also naively though it would be easy if I'd already come this far). 
 
 ![](Images/opengl_renderer.gif)
 ![](Images/slider.gif)
@@ -45,24 +45,26 @@ I used the wonderfully well made site [LearnOpenGL](https://learnopengl.com/) by
 
 By this point I had a comfortable grasp of most of C and abided by a fair amount of good coding practices (not enough). I went through and worked my way through the tutorial series. Starting off with .obj 3D model parsing / loading. Doing this early on helped immensely with mentally mapping from a 3D object and its triangles to the vertex data the GPU takes in.
 
-![](Images/crate.gif)
+![](Images/crate.mp4)
 
 I followed the tutorials up to the point of basic specular lighting and then toyed around with some different models and normal / bump maps.
 
-![](Images/more_lighting.gif)
-![](Images/shiny.gif)
+![](Images/more_lighting.mp4)
+![](Images/shiny.mp4)
 
-Now comes the second attempt at a UI library. This time I went with a retained mode UI and modeled it after a combination of html and css. I used [JSMN](https://github.com/zserge/jsmn) to tokenize JSON files and then parsed the contents from there. UI files contained a style section for element classes and a hierarchical scene section for the elements themselves. Classes can be applied to elements and classes can with mouse actions such as hovering or clicking.
+I then polished up the look of everything and spent a while messing around with shaders to get the overall program into a more presentable package.
+![](Images/game_engine.mp4)
+![](Images/pretty.mp4)
+
+Now comes the second attempt at a UI library. This time I went with a retained mode UI and modeled it after a combination of html and css. I used [JSMN](https://github.com/zserge/jsmn) to tokenize JSON files and then parsed the contents from there. UI files contained a style section for element classes and a hierarchical scene section for the elements themselves. Classes can be applied to elements when loaded from a file and classes can be applied to elements upon hovering or clicking.
+![](Images/ui_menu.mp4)
+A goal of mine at this point was to make every resource (models, textures, shaders) easily hot reloadable. This included UI and I managed to get it to a point where it was usable enough to drastically speed up UI prototyping.
+![](Images/ui_colours.mp4)
+
+This second attempt at a UI system worked great, that is until my ignorance of memory leaks caught up to me and impossible to track down bugs started popping up. 
+![](Images/sentient_ui.mp4)
+
+I needed to change up my approach if I wanted to have a usable program with hot reloading and no memory leaks. So I started to modularize as much as I could, I wrote completely independent libraries for each part of the engine (e.g. mesh loading, shader loading, ui layout, etc). The intention was to write and test each module by itself and then combine them all into the final engine.
 
 
-
-I needed to change up my approach if i wanted to have a usable program with hot reloading and no memory leaks
-
-
-
-
-
-
-
-
-At this point, I wasn't following the tutorials on LearnOpenGL in order, I was using it more as a reference whenever I wanted to figure out how to do something. I spent a while messing around with shaders since you can very easily get some incredibly complex effects. Heres a few of my favourite:
+With the most recent attempt at a UI I started off by focusing on functionality of laying out elements before even thinking about visual things like radiused corners or the parsing and serializing aspects.
