@@ -1,9 +1,9 @@
 # My Journey Making a 3D Game Engine
-When I first started in 2020 with attempting to make a game, I barely knew any C. All I had done up to this point was write an x86 bootloader in assembly, attempt to do something in Unity using C# and play around with command line C programs.
+When I first started in 2020 with attempting to make a game, I barely knew any C. All I had done up to this point was write an x86 bootloader in assembly, naively attempt to do recreate Garrys's Mod in Unity using C# and play around with command line C programs.
 
 ---
 ### FoxandBox
-This early dive into game and engine development was heavily influenced by Stardew Valley and Pokemon. Everything from the tile based level to the art style.
+This early dive into game and engine development was heavily influenced by Stardew Valley and the Pokemon games. Everything from the tile based level to the art style.
 
 ![](Images/particleSystem.gif)
 

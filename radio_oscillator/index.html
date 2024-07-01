@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Oscillator</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+	<a class=\"header-link\" href="https://vespidian.github.io/Showcase/">Home</a>
+	<a class=\"header-link\" href="https://github.com/Vespidian/">
+		<img src=\"icons/github.svg\" align=\"left\" style=\"height:32px;\">
+	</a>
+</header>
+<p>[SMD components only] I started off by soldering all the surface
+mount components so that any larger components don't get in the way. I
+purposefully used a larger capacitor to couple the oscillator to it's
+buffer stage so that I could use it to bridge over the track without
+needing a two layer board.</p>
+<p>[Picture with varicap offscreen] [Picture with varicap] I then added
+all the non SMD components. For the CC (common collector) buffer stage
+transistor I initially used a 2N2222 since I've a much more plentiful
+supply of them than BFS17. For the tank circuit I used a 15pF capactior,
+an air core inductor I estimated to be around 10nH, and a crude attempt
+at a homemade variable capactior. I opted to leave out the RF choke
+between the two stages simply because I was lazy. I just bridged the gap
+with a wire instead.</p>
+<p>[simulation showing current draw] Once assembled, I power it at 5V
+through a 1kOhm resistor and make sure the current draw is less than the
+5mA the resistor would allow (it drew about 1mA which is in line with
+the simulation). I check for any shorts and make sure the bias voltages
+look fine. The moment of truth comes, I start up my spectrum analyzer
+(an RTLSDR and <a
+href="https://github.com/pavels/spektrum">spektrum</a>) and...
+Nothing.</p>
+<p>What I believe happened here is, since I used the 2N2222 - which
+isn't rated to work above 300MHz - for the buffer stage, it was putting
+too heavy a load on the oscillator and damping out any oscillations.</p>
+<p>Before I switched out the transistor I swapped out the variable
+capacitor for a static 47pF capacitor. Still no dice, I probably could
+have kept the variable cap but I ended up going another less finicky
+route to dial in the frequency.</p>
+<p>[Image showing 270 fundamental and 542 harmonic] With the 2N2222
+swapped for a faster switching BFS17 It worked! But as expected, at the
+wrong frequency. By looking at the frequency I could estimate the value
+of my inductor; Assuming the capacitors are perfect and no parasitics. I
+calculated an inductance of 26.2nH which is pretty far off from what I
+thought it would be.</p>
+<p>[Image showing finished board] After dealing with stability issues
+for an hour I finally caved and put in the RF choke like I was supposed
+to do to begin with. This immediately resulted in a much cleaner and
+more stable signal - oh how annoying past me can be sometimes.</p>
+<p>[Image of simulation showing small second harmonic] [Image from
+spektrum showing similar amplitudes for harmonics] From the simulation I
+knew there would be a bit of clipping causing a visible second harmonic
+but what I wasnt expecting was for said harmonic to be about as strong
+as the fundamental. Note: It probably isn't really as strong as the
+fundamental but looking at signal strength using a RTLSDR shows it as
+about the same and thats the only tool I have that is able to measure
+signal strength.</p>
+<p>It was interesting to see just how sensitive the frequency is to my
+hand or other conductive objects in close proximity.</p>
+<p>Because of the strength of the second harmonic I had the idea to
+bring it down to 433MHz instead of bringing the fundamental up. Bringing
+it down ends up being easier since I can use a bigger value for the
+inductor and keep the capacitors the same size.</p>
+<p>To dial in the frequency I used the inductor. I calculated that I
+would need 3 turns to bring the frequency down slightly lower than
+433MHz. I then stretched out the inductor - lowering its inductance and
+increasing the resonant frequency - until it resonated at 433MHz.</p>
+<p>[Picture of transistor switch test] With the oscillator stable and
+working, I decided to test if it would work at 4.3V which would be
+required if i want to switch it on and off with a transistor. Although
+as I write this I realize the current draw is low enough it could
+probably be switched directly from a microcontroller's GPIO pin. Well
+nonetheless it still oscillates at 4.3V although theres very little
+leeway since it stops oscillating at around 4.1V</p>
+<p>[Resulting 216 spectrum] [Resulting 433 spectrum] All in all im quite
+pleased with the results, I still have to figure out an enclosure so
+mitigate frequency drift as well as an output filter to get rid of the
+216MHz oscillation; But the hard part is done.</p>
+<footer>
+	<hr>
+	<div style=\"font-size:12px; display:flex; justify-content:space-between;\">
+		<div>Copyright © 2024 Cristian Bogdan</div>
+		<a href=\"../index.html\">Home</a>
+	</div>
+</footer>
+</body>
+</html>

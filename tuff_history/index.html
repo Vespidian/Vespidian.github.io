@@ -11,42 +11,40 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../style.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-30RHKJJ7LQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-30RHKJJ7LQ');
-</script>
-
+<header>
+	<a class=\"header-link\" href="https://vespidian.github.io/Showcase/">Home</a>
+	<a class=\"header-link\" href="https://github.com/Vespidian/">
+		<img src=\"icons/github.svg\" align=\"left\" style=\"height:32px;\">
+	</a>
+</header>
 <h1 id="my-journey-making-a-3d-game-engine">My Journey Making a 3D Game
 Engine</h1>
 <p>When I first started in 2020 with attempting to make a game, I barely
 knew any C. All I had done up to this point was write an x86 bootloader
-in assembly, attempt to do something in Unity using C# and play around
-with command line C programs.</p>
+in assembly, naively attempt to do recreate Garrys's Mod in Unity using
+C# and play around with command line C programs.</p>
 <hr />
 <h3 id="foxandbox">FoxandBox</h3>
 <p>This early dive into game and engine development was heavily
-influenced by Stardew Valley and Pokemon. Everything from the tile based
-level to the art style.</p>
+influenced by Stardew Valley and the Pokemon games. Everything from the
+tile based level to the art style.</p>
 <p><img src="Images/particleSystem.gif" /></p>
 <p>I started off using just SDL2 and learned everything from <a
 href="https://lazyfoo.net/tutorials/SDL/">Lazy Foo's tutorials</a> In
@@ -154,10 +152,10 @@ and then combine them all into the final engine.</p>
 functionality of laying out elements before even thinking about visual
 things like radiused corners or the parsing and serializing aspects.</p>
 <footer>
-	<hr />
-	<div style="font-size:12px; display:flex; justify-content:space-between;">
-	<div>Copyright © 2024 Cristian Bogdan</div>
-	<a href="../index.html">Home</a>
+	<hr>
+	<div style=\"font-size:12px; display:flex; justify-content:space-between;\">
+		<div>Copyright © 2024 Cristian Bogdan</div>
+		<a href=\"../index.html\">Home</a>
 	</div>
 </footer>
 </body>
