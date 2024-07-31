@@ -34,9 +34,16 @@
 		<img src="../../icons/github.svg" align="left" style="height:32px;">
 	</a>
 </header>
+<h2 id="design-and-construction-of-a-433mhz-radio-transmitter">Design
+and construction of a 433MHz radio transmitter</h2>
+<p>I'm planning on making a low power radio transceiver to be used in
+battery powered sensors. This is my first step in the process. This
+build is mostly for education purposes and probably wont end up being
+used for anything, its about going through the motions and learning.</p>
 <h2 id="circuit-design">Circuit Design</h2>
 <hr />
-<p>There were a few variations, I started off trying to make a common
+<p>I experimented with simulating a couple different designs before I
+settled on the final circuit, I started off trying to make a common
 emitter colpitts but eventually learned that common collector might be
 better for higher frequencies.</p>
 <p><img src="Images/circuit_diagram.png" /> I buffered the oscillator
@@ -61,11 +68,11 @@ harmonic.</p>
 </tbody>
 </table>
 <p>For the layout I started off by drawing up correctly sized prefabs
-for each of the components I would be using. I then arranged the
+for each of the SMD components I would be using. I then arranged the
 components in the shape of the circuit and started drawing islands for
-each node. After a bit of tweaking to make sure the gap is consistent
-everywhere, I printed it out to check the scaling and make sure
-everything would correctly fit. Once I was confident with the layout i
+each node. After a bit of tweaking to make sure the gaps around islands
+were consistent, I printed it out and checked the scaling to make sure
+everything would correctly fit. Once I was confident with the layout I
 moved onto the actual build.</p>
 <h2 id="the-build">The Build</h2>
 <hr />
@@ -85,9 +92,9 @@ I switched to a dremel which did quick work of the copper. Not the
 cleanest job, but good enough.</p>
 <p><img src="Images/smd_components_only.jpg" /> I started off by
 soldering all the surface mount components so that any larger components
-don't get in the way. I purposefully used a larger capacitor to couple
-the oscillator to it's buffer stage so that I could use it to bridge
-over the track without needing a two layer board.</p>
+wouldn't get in the way. I purposefully used a larger capacitor to
+couple the oscillator to it's buffer stage so that I could use it to
+bridge over the track without needing a two layer board.</p>
 <p><img src="Images/varicap_offscreen.jpg" /> <img
 src="Images/varicap.jpg" /> I then added all the non SMD components. For
 the CC (common collector) buffer stage transistor I initially used a
@@ -99,9 +106,9 @@ simply because I was lazy. I just bridged the gap with a wire
 instead.</p>
 <p>Once assembled, I power it at 5V through a 1kOhm resistor and make
 sure the current draw is less than the 5mA the resistor would allow (it
-drew about 1mA which is in line with the simulation). I check for any
-shorts and make sure the bias voltages look fine. The moment of truth
-comes, I start up my spectrum analyzer (an RTLSDR and <a
+drew about 1mA which is in line with the simulation). I checked for any
+shorts and made sure the bias voltages looked fine. The moment of truth
+came, I start up my spectrum analyzer (an RTLSDR and <a
 href="https://github.com/pavels/spektrum">spektrum</a>) and...
 Nothing.</p>
 <p>What I believe happened here is, since I used the 2N2222 - which
@@ -120,8 +127,8 @@ thought it would be.</p>
 <p><img src="Images/finished_board.jpg" /> After dealing with stability
 issues for an hour I finally caved and put in the RF choke like I was
 supposed to do to begin with. This immediately resulted in a much
-cleaner and more stable signal - oh how annoying past me can be
-sometimes.</p>
+cleaner and more stable signal - I could've saved myself an hour if i'd
+just put it in to begin with.</p>
 <p><img src="Images/fourier_sim_original.png" /> From the simulation I
 knew there would be a bit of clipping causing a visible second harmonic
 but what I wasn't expecting was for said harmonic to be about as strong
@@ -130,7 +137,7 @@ fundamental but looking at signal strength using a RTLSDR shows it as
 about the same and that's the only tool I have that is able to measure
 signal strength.</p>
 <p>It was interesting to see just how sensitive the frequency is to my
-hand or other conductive objects in close proximity.</p>
+hand or other conductive objects moving near it.</p>
 <p>Because of the strength of the second harmonic I had the idea to
 bring it down to 433MHz instead of bringing the fundamental up. Bringing
 it down ends up being easier since I can use a bigger value for the
@@ -141,13 +148,13 @@ would need 3 turns to bring the frequency down slightly lower than
 increasing the resonant frequency - until it resonated at 433MHz.</p>
 <p><img src="Images/sdr_test_jig.jpg" /> All of this testing was done
 with no load and the RTLSDR sensing nearby with an antenna. So as you
-would expect, the moment I put a 50 Ohm load on it, it stops
+would expect, the moment I put a 50 Ohm load on it, it stopped
 oscillating. I played around with putting 100 and 1k Ohm resistors in
 series to see what it would take to get it to oscillate, it oscillated
-with 1k but not with 100. This should be fine since im not looking to be
-making a high power transmitter anyway.</p>
+with 1k but not with 100. This should be fine since i'm not looking to
+be making a high power transmitter anyway.</p>
 <p>With the oscillator stable and working, I decided to test if it would
-work at 4.3V which would be required if i want to switch it on and off
+work at 4.3V which would be required if I want to switch it on and off
 with a transistor. Although as I write this I realize the current draw
 is low enough it could probably be switched directly from a
 microcontroller's GPIO pin. Well nonetheless it still oscillates at 4.3V
@@ -166,7 +173,7 @@ although theres very little leeway since it stops oscillating at around
 <p>All in all i'm quite pleased with the results, I still have to figure
 out an enclosure so mitigate frequency drift as well as an output filter
 to get rid of the 216MHz oscillation; But the hard part is done.</p>
-<h4 id="update">Update</h4>
+<h3 id="update">Update</h3>
 <p><img src="Images/swapped_caps_thru_1k.png" /> I refined the design a
 bit to oscillate more reliably with a load applied. I brought the
 biasing of the oscillator stage transistor down by changing the bottom
