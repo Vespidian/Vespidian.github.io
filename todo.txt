@@ -1,4 +1,0 @@
-fix footers for posts
-fix github icon for posts
-fix header in general
-add initial blurb on homepage

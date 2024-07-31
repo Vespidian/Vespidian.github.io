@@ -1,1 +1,0 @@
-maybe we have a simpler mainpage index template and we just add an entry for each new blog we make
