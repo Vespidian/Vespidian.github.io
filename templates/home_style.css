@@ -41,6 +41,10 @@ header-link:hover{
 	color: #efefef;
 }
 
+footer{
+	margin-bottom: 20px;
+}
+
 .thumbnail{
 	max-width: 20%;
 	float: right;
