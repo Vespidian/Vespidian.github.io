@@ -1,0 +1,1 @@
+Designing and prototyping a dimmable LED lamp and constant current LED driver board. Embedding an STM32f103 MCU for sunrise simulation and infra-red remote control
