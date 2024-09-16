@@ -60,15 +60,20 @@ I followed the tutorials up to the point of basic specular lighting and then toy
 ![](Images/shiny.mp4)
 
 I then polished up the look of everything - taking some notes from Blender's UI - and spent a while messing around with shaders to get the overall program into a more presentable package.
+
 ![](Images/game_engine.mp4)
 ![](Images/pretty.mp4)
 
 Now comes the second attempt at a UI library. This time I went with a retained mode UI and modeled it after a combination of html and css. I used [JSMN](https://github.com/zserge/jsmn) to tokenize JSON files and then parsed the contents from there. UI files contained a style section for element classes and a hierarchical scene section for the elements themselves. Classes can be applied to elements when loaded from a file and classes can be applied to elements upon hovering or clicking.
+
 ![](Images/ui_menu.mp4)
+
 A goal of mine at this point was to make every resource (models, textures, shaders) easily hot re-loadable. This included UI and I managed to get it to a point where it was usable enough to drastically speed up UI prototyping.
+
 ![](Images/ui_colours.mp4)
 
 This second attempt at a UI system worked great. But alas, eventually my ignorance of memory leaks caught up to me and impossible to track down bugs started popping up. 
+
 ![](Images/sentient_ui.mp4)
 
 If I wanted to have a usable program with hot reloading and no memory leaks, I needed to change up my approach. So I started to modularize as much as I could; I wrote completely independent libraries for each part of the engine (e.g. mesh loading, shader processing, ui layout, etc). The intention was to write and test each module by itself and then combine them all into the final engine.
@@ -85,8 +90,28 @@ With the most recent attempt at a UI I started off by focusing on the functional
 I used pretty much the same file format for UI files as with the previous attempt.
 
 ![](Images/particle_sim.mp4)
+
 To showcase this version as well as the engine itself, I made a molecular dynamics simulation program which displays a 3D rendering of molecules as physical simulation of atomic collisions is carried out.
 
 ![](Images/octane_sim.mp4)
+
 The intention with this program being to one day be able to simulate protein folding and render it in real time. But I'm in slightly over my head with this; So I chose to limit the scope and simulate only smaller simpler molecules for now.
 
+And that is the present state of the engine.. Obviously i'm not planning on stopping development any time soon but its been going much slower because of university. As for what's next for the engine, well I'm not quite sure yet; I have a few projects i would like to try out with the engine as a base, here's a few of them listed below.
+
+- A semiconductor analog IC design tool (similar to [Magic VLSI](http://opencircuitdesign.com/magic/)) with the following features:
+	- 3D render of the deposited semiconductor with thin-film interference colours
+	- Ability to export layers as masks for fabrication
+	- Analog electrical and electromagnetic simulation of design
+- An atomic crystal structure viewer
+	- Possibly with the ability to atomically simulate semiconductors
+- A "real time" protein folding simulator
+	- Could play back a completed simulation rather than being real time
+- Supplementary applications for the game engine itself
+	- UI editor / creator
+	- 3D model editor
+	- Resource compiler (to compress assets and store them in a less easily modifiable form)
+
+All of these aren't necessarily going to happen they're just cool things that I think could be fun to try to implement and would teach me a great deal about areas of science I'm interested in.
+
+I also plan on adding scripting functionality to the engine. I have already toyed around with using Lua as well as using the [Tiny C Compiler (TCC)](https://bellard.org/tcc/) to just in time compile C code as a weird form of scripting.

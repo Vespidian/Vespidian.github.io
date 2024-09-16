@@ -148,8 +148,8 @@ src="Images/shiny.mp4" controls=""><a
 href="Images/shiny.mp4">Video</a></video></p>
 <p>I then polished up the look of everything - taking some notes from
 Blender's UI - and spent a while messing around with shaders to get the
-overall program into a more presentable package. <video
-src="Images/game_engine.mp4" controls=""><a
+overall program into a more presentable package.</p>
+<p><video src="Images/game_engine.mp4" controls=""><a
 href="Images/game_engine.mp4">Video</a></video> <video
 src="Images/pretty.mp4" controls=""><a
 href="Images/pretty.mp4">Video</a></video></p>
@@ -160,17 +160,20 @@ files and then parsed the contents from there. UI files contained a
 style section for element classes and a hierarchical scene section for
 the elements themselves. Classes can be applied to elements when loaded
 from a file and classes can be applied to elements upon hovering or
-clicking. <video src="Images/ui_menu.mp4" controls=""><a
-href="Images/ui_menu.mp4">Video</a></video> A goal of mine at this point
-was to make every resource (models, textures, shaders) easily hot
-re-loadable. This included UI and I managed to get it to a point where
-it was usable enough to drastically speed up UI prototyping. <video
-src="Images/ui_colours.mp4" controls=""><a
+clicking.</p>
+<p><video src="Images/ui_menu.mp4" controls=""><a
+href="Images/ui_menu.mp4">Video</a></video></p>
+<p>A goal of mine at this point was to make every resource (models,
+textures, shaders) easily hot re-loadable. This included UI and I
+managed to get it to a point where it was usable enough to drastically
+speed up UI prototyping.</p>
+<p><video src="Images/ui_colours.mp4" controls=""><a
 href="Images/ui_colours.mp4">Video</a></video></p>
 <p>This second attempt at a UI system worked great. But alas, eventually
 my ignorance of memory leaks caught up to me and impossible to track
-down bugs started popping up. <video src="Images/sentient_ui.mp4"
-controls=""><a href="Images/sentient_ui.mp4">Video</a></video></p>
+down bugs started popping up.</p>
+<p><video src="Images/sentient_ui.mp4" controls=""><a
+href="Images/sentient_ui.mp4">Video</a></video></p>
 <p>If I wanted to have a usable program with hot reloading and no memory
 leaks, I needed to change up my approach. So I started to modularize as
 much as I could; I wrote completely independent libraries for each part
@@ -199,16 +202,56 @@ which can each work almost independently as well.</p>
 <p>I used pretty much the same file format for UI files as with the
 previous attempt.</p>
 <p><video src="Images/particle_sim.mp4" controls=""><a
-href="Images/particle_sim.mp4">Video</a></video> To showcase this
-version as well as the engine itself, I made a molecular dynamics
-simulation program which displays a 3D rendering of molecules as
-physical simulation of atomic collisions is carried out.</p>
+href="Images/particle_sim.mp4">Video</a></video></p>
+<p>To showcase this version as well as the engine itself, I made a
+molecular dynamics simulation program which displays a 3D rendering of
+molecules as physical simulation of atomic collisions is carried
+out.</p>
 <p><video src="Images/octane_sim.mp4" controls=""><a
-href="Images/octane_sim.mp4">Video</a></video> The intention with this
-program being to one day be able to simulate protein folding and render
-it in real time. But I'm in slightly over my head with this; So I chose
-to limit the scope and simulate only smaller simpler molecules for
-now.</p>
+href="Images/octane_sim.mp4">Video</a></video></p>
+<p>The intention with this program being to one day be able to simulate
+protein folding and render it in real time. But I'm in slightly over my
+head with this; So I chose to limit the scope and simulate only smaller
+simpler molecules for now.</p>
+<p>And that is the present state of the engine.. Obviously i'm not
+planning on stopping development any time soon but its been going much
+slower because of university. As for what's next for the engine, well
+I'm not quite sure yet; I have a few projects i would like to try out
+with the engine as a base, here's a few of them listed below.</p>
+<ul>
+<li>A semiconductor analog IC design tool (similar to <a
+href="http://opencircuitdesign.com/magic/">Magic VLSI</a>) with the
+following features:
+<ul>
+<li>3D render of the deposited semiconductor with thin-film interference
+colours</li>
+<li>Ability to export layers as masks for fabrication</li>
+<li>Analog electrical and electromagnetic simulation of design</li>
+</ul></li>
+<li>An atomic crystal structure viewer
+<ul>
+<li>Possibly with the ability to atomically simulate semiconductors</li>
+</ul></li>
+<li>A "real time" protein folding simulator
+<ul>
+<li>Could play back a completed simulation rather than being real
+time</li>
+</ul></li>
+<li>Supplementary applications for the game engine itself
+<ul>
+<li>UI editor / creator</li>
+<li>3D model editor</li>
+<li>Resource compiler (to compress assets and store them in a less
+easily modifiable form)</li>
+</ul></li>
+</ul>
+<p>All of these aren't necessarily going to happen they're just cool
+things that I think could be fun to try to implement and would teach me
+a great deal about areas of science I'm interested in.</p>
+<p>I also plan on adding scripting functionality to the engine. I have
+already toyed around with using Lua as well as using the <a
+href="https://bellard.org/tcc/">Tiny C Compiler (TCC)</a> to just in
+time compile C code as a weird form of scripting.</p>
 <footer>
 	<hr>
 	<div style="font-size:12px; display:flex; justify-content:space-between;">
